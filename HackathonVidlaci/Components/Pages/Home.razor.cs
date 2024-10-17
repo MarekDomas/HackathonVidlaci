@@ -2,6 +2,7 @@
 {
     public partial class Home
     {
-        private string msg = "ss";
+        private string msg = "test"
+            ;
     }
 }
