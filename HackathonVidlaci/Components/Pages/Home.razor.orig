@@ -1,5 +1,24 @@
 ﻿@page "/"
 @using HackathonVidlaci.Classes
+<<<<<<< HEAD
+@inject HradyContext hradyContext
+@inject HrobyContext hrobyContext
+@inject DivadlaContext divadlaContext
+@inject ZamkyContext zamkyContext
+@inject KulturniDomyContext kulturniDomyContext
+@inject TechnickePamatkyContext technickePamatkyContext
+
+<PageTitle>Home</PageTitle>
+@* 
+@foreach (var line in msg){
+    
+    <p>@line</p>
+} *@
+
+<Map></Map>
+
+<button class="btn btn-primary" @onclick="klik">Load data</button>
+=======
 @inject IJSRuntime Js
 @rendermode InteractiveServer
 <PageTitle>PamatkyNaHadky</PageTitle>
@@ -74,3 +93,4 @@
 
 
 }
+>>>>>>> Vojta_Autista
