@@ -1,29 +1,57 @@
 ﻿@page "/"
+@using HackathonVidlaci.Classes
 
 <PageTitle>PamatkyNaHadky</PageTitle>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+</head>
+<div>
 
-<h1>Památky Na Hádky</h1>
-<p>Na této stránce můžete najít zábavu pro vás i vaši celou rodinu</p>
-<EditForm >
-   <DataAnnotationsValidator />
-    <ValidationSummary />
+
+    <h1>Památky Na Hádky</h1>
+    <p>Na této stránce můžete najít zábavu pro vás i vaši celou rodinu</p>
+</div>
+<Form>
+    
     <div>
-        <label>
-            Pohlaví
-                <InputSelect Value="dff">
-                    <option value="">
-                        Muž
-                    </option>
-                    <option value="">
-                        Žena
-                    </option>
-                    <option>
-                        Útočná Helikoptéra
-                    </option>
-                    <option>
-                        Nechci Uvádět
-                    </option>
-                </InputSelect>
-        </label>
+        Pohlaví
+        <select name="SexName" id="SexID">
+            <option selected disabled>...</option>
+            <option>Muž</option>
+            <option>Žena</option>
+            <option>Útočná helikoptéra</option>
+            <option>Nechci uvádět</option>
+        </select>
     </div>
-</EditForm>
+    <div>
+        Věk 
+       <Input type="number" max="99" id="AgeID" name="AgeName"/>
+    </div>
+    <div>
+        Počet dětí
+        <input id="kidsNumberID" name="KidsNumberName" type="number" min="0"/>
+    </div>
+    <div>
+        Délka zábavy
+        <input type="time" max="12:00" step="600"/>
+    </div>
+    <div>
+        Rozpočet (KČ)
+        <input type="number"/>
+    </div>
+    <div>
+        Možnost přepravy
+        <select>
+            <option selected disabled>...</option>
+            <option>
+                Automobil
+            </option>
+            <option>
+                Pěšky
+            </option>
+            <option>
+                MHD
+            </option>
+        </select>
+    </div>
+</Form>

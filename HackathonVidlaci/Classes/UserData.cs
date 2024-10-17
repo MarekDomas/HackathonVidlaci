@@ -6,7 +6,7 @@ namespace HackathonVidlaci.Classes
     public class UserData
     {
 
-        public int Age { get; set; }
+        public static int Age { get; set; }
 
        
 
