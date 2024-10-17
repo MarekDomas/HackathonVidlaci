@@ -42,7 +42,7 @@
 
         .map-container {
             flex: 4; /* The map takes up 4 parts of the available space */
-            height: 500px; /* Keep the height fixed */
+            height: 400px; /* Keep the height fixed */
             background-color: #eed7a1; /* Soft beige map placeholder */
             border: 2px solid #cd8b62; /* Terracotta border */
         }
@@ -50,6 +50,48 @@
         .header {
             text-align: center; /* Center-align the heading and paragraph */
             margin-bottom: 30px; /* Add spacing below the header */
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%; /* Full width */
+        }
+
+        .dropdown-toggle {
+            padding: 10px;
+            background-color: #cd8b62; /* Match to form border color */
+            color: white;
+            border: 2px solid #cd8b62; /* Same border as form elements */
+            cursor: pointer;
+            width: 100%; /* Full width */
+            border-radius: 0.6rem;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 100%; /* Match the width of the dropdown */
+            border: 2px solid #cd8b62; /* Match form border */
+            z-index: 1;
+            padding: 10px;
+            box-shadow: 0 0 5px rgba(71, 92, 108, 0.5); /* Subtle shadow for dropdown */
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block; /* Show dropdown on hover */
+        }
+
+        .checkbox-label {
+            display: block; /* Each checkbox on a new line */
+            padding: 5px 0;
+            cursor: pointer;
+            
+        }
+
+        .checkbox-label:hover {
+            background-color: #f1f1f1; /* Highlight on hover */
         }
     </style>
 </head>
@@ -98,6 +140,37 @@
                 <option>Pěšky</option>
                 <option>MHD</option>
             </select>
+        </div>
+        
+        <!-- Dropdown with Checkboxes -->
+        <div class="dropdown mt-3">
+            <label class="dropdown-toggle">Vyberte možnosti</label>
+            <div class="dropdown-content">
+                <label class="checkbox-label">
+                    <input id="CheckHrad" type="checkbox" /> Hrad
+                </label>
+                <label class="checkbox-label">
+                    <input id="CheckZamek" type="checkbox" /> Zamek
+                </label>
+                <label class="checkbox-label">
+                    <input id="CheckKulturPam" type="checkbox" /> Kulturní památky
+                </label>
+                <label class="checkbox-label">
+                    <input id="CheckTech" type="checkbox" /> Technické
+                </label>                
+                <label class="checkbox-label">
+                    <input id="CheckHrob" type="checkbox" /> Válečné hroby
+                </label>                
+                <label class="checkbox-label">
+                    <input id="CheckDivadla" type="checkbox" /> Divadla
+                </label>                
+                <label class="checkbox-label">
+                    <input id="CheckKultDum" type="checkbox" /> Kulturní domy
+                </label>               
+                <label class="checkbox-label">
+                    <input id="CheckMuzea" type="checkbox" /> Muzea
+                </label>
+            </div>
         </div>
     </Form>
 
