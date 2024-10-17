@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using HackathonVidlaci.Classes
+<<<<<<< HEAD
 @inject IJSRuntime Js
 @rendermode InteractiveServer
 @inject HradyContext hradyContext
@@ -10,74 +11,214 @@
 @inject TechnickePamatkyContext technickePamatkyContext
 <PageTitle>PamatkyNaHadky</PageTitle>
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-  
     <style>
-        #map {
-            height: 400px;
-            width: 100%;
+        body {
+            background-color: #f7efd3; /* Light cream background */
+        }
+
+        h1 {
+            color: #475c6c; /* Dark blue-grey for the title */
+        }
+
+        p {
+            color: #8a8583; /* Medium grey for the paragraph */
+        }
+
+        select, input {
+            border-color: #cd8b62; /* Warm terracotta for form borders */
+        }
+
+        select:focus, input:focus {
+            border-color: #475c6c; /* Dark blue-grey on focus */
+            box-shadow: 0 0 5px rgba(71, 92, 108, 0.5);
+        }
+
+        .container {
+            display: flex;
+            gap: 20px; /* Adds space between the form and the map */
+            align-items: flex-start; /* Aligns the items at the top */
+        }
+
+        /* Make the form slimmer and the map wider */
+        .form-group {
+            flex: 1; /* The form takes up 1 part of the available space */
+            max-width: 30%; /* Restrict form width */
+        }
+
+        .map-container {
+            flex: 4; /* The map takes up 4 parts of the available space */
+            height: 400px; /* Keep the height fixed */
+            background-color: #eed7a1; /* Soft beige map placeholder */
+            border: 2px solid #cd8b62; /* Terracotta border */
+        }
+
+        .header {
+            text-align: center; /* Center-align the heading and paragraph */
+            margin-bottom: 30px; /* Add spacing below the header */
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%; /* Full width */
+        }
+
+        .dropdown-toggle {
+            padding: 10px;
+            background-color: #cd8b62; /* Match to form border color */
+            color: white;
+            border: 2px solid #cd8b62; /* Same border as form elements */
+            cursor: pointer;
+            width: 100%; /* Full width */
+            border-radius: 0.6rem;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 100%; /* Match the width of the dropdown */
+            border: 2px solid #cd8b62; /* Match form border */
+            z-index: 1;
+            padding: 10px;
+            box-shadow: 0 0 5px rgba(71, 92, 108, 0.5); /* Subtle shadow for dropdown */
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block; /* Show dropdown on hover */
+        }
+
+        .checkbox-label {
+            display: block; /* Each checkbox on a new line */
+            padding: 5px 0;
+            cursor: pointer;
+            
+        }
+
+        .checkbox-label:hover {
+            background-color: #f1f1f1; /* Highlight on hover */
         }
     </style>
 </head>
-<div>
 
-    <div class="map-container" id="map"></div>
+<!-- Header Section -->
+<div class="header">
     <h1>Památky Na Hádky</h1>
-    <p>Na této stránce můžete najít zábavu pro vás i vaši celou rodinu</p>
-
-   <MapPage></MapPage>
-  
+    <p>Zde najdete zábavu pro vás i celou vaši rodinu</p>
 </div>
-<Form>
-    
-    <div>
-        Pohlaví
-        <select name="SexName" id="SexID">
-            <option selected disabled>...</option>
-            <option>Muž</option>
-            <option>Žena</option>
-            <option>Útočná helikoptéra</option>
-            <option>Nechci uvádět</option>
-        </select>
-    </div>
-    <div>
-        Věk 
-       <Input type="number" max="99" id="AgeID" name="AgeName"/>
-    </div>
-    <div>
-        Počet dětí
-        <input id="kidsNumberID" name="KidsNumberName" type="number" min="0"/>
-    </div>
-    <div>
-        Délka zábavy
-        <input type="time" max="12:00" step="600"/>
-    </div>
-    <div>
-        Rozpočet (KČ)
-        <input type="number"/>
-    </div>
-    <div>
-        Možnost přepravy
-        <select>
-            <option selected disabled>...</option>
-            <option>
-                Automobil
-            </option>
-            <option>
-                Pěšky
-            </option>
-            <option>
-                MHD
-            </option>
-        </select>
-    </div>
-  
-    
-</Form>
 
-@code {
+<!-- Flexbox container for form and map -->
+<div class="container">
+    <!-- Form Section -->
+    <Form class="form-group">
+        <div>
+            <label for="SexID">Pohlaví</label>
+            <select name="SexName" id="SexID" class="form-control">
+                <option selected disabled>...</option>
+                <option>Muž</option>
+                <option>Žena</option>
+                <option>Útočná helikoptéra</option>
+                <option>Nechci uvádět</option>
+            </select>
+        </div>
+        <div>
+            <label for="AgeID">Věk</label>
+            <Input type="number" max="99" id="AgeID" name="AgeName" class="form-control" />
+        </div>
+        <div>
+            <label for="kidsNumberID">Počet dětí</label>
+            <input id="kidsNumberID" name="KidsNumberName" type="number" min="0" class="form-control" />
+        </div>
+        <div>
+            <label for="timeID">Délka zábavy</label>
+            <input type="time" max="12:00" step="600" class="form-control" />
+        </div>
+        <div>
+            <label for="budgetID">Rozpočet (KČ)</label>
+            <input type="number" class="form-control" />
+        </div>
+        <div>
+            <label for="transportID">Možnost přepravy</label>
+            <select class="form-control">
+                <option selected disabled>...</option>
+                <option>Automobil</option>
+                <option>Pěšky</option>
+                <option>MHD</option>
+            </select>
+        </div>
+        
+        <!-- Dropdown with Checkboxes -->
+        <div class="dropdown mt-3">
+            <label class="dropdown-toggle">Vyberte možnosti</label>
+            <div class="dropdown-content">
+                <label class="checkbox-label">
+                    <input id="CheckHrad" type="checkbox" /> Hrad
+                </label>
+                <label class="checkbox-label">
+                    <input id="CheckZamek" type="checkbox" /> Zamek
+                </label>
+                <label class="checkbox-label">
+                    <input id="CheckKulturPam" type="checkbox" /> Kulturní památky
+                </label>
+                <label class="checkbox-label">
+                    <input id="CheckTech" type="checkbox" /> Technické
+                </label>                
+                <label class="checkbox-label">
+                    <input id="CheckHrob" type="checkbox" /> Válečné hroby
+                </label>                
+                <label class="checkbox-label">
+                    <input id="CheckDivadla" type="checkbox" /> Divadla
+                </label>                
+                <label class="checkbox-label">
+                    <input id="CheckKultDum" type="checkbox" /> Kulturní domy
+                </label>               
+                <label class="checkbox-label">
+                    <input id="CheckMuzea" type="checkbox" /> Muzea
+                </label>
+            </div>
+        </div>
+    </Form>
 
+    <!-- Map Section -->
+    <div class="map-container" id="map">
+        <p style="text-align: center; color: #475c6c;">Mapa zde</p>
+    </div>
+</div>
 
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([50.2042646, 15.8267867], 13); // Default location (London)
 
-}
+    // Load and display a tile layer on the map (OpenStreetMap tiles)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Check if geolocation is available
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            // Get user's current coordinates
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+
+            // Update the map to the user's location
+            map.setView([lat, lon], 13);
+
+            // Add a marker at the user's current location
+            L.marker([lat, lon]).addTo(map)
+                .bindPopup("Jste zde!")
+                .openPopup();
+        }, function (error) {
+            alert("Nepodařilo se nám získat Vaši lokaci z důvodu: " + error.message);
+        });
+    } else {
+        alert("Geolokace není podporována ve Vašem prohlížeči.");
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HZ5S65z4FcAz7QHnA9EjZCQKNjDd6V/QfbuSnP0MtXMQXpTFU/yICp8HkmMfQ0zz"
+        crossorigin="anonymous"></script>
