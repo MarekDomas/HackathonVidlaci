@@ -121,18 +121,20 @@
 
     <EditForm Model="@Data" class="form-group" OnValidSubmit="Submit">
         
-
+        
+             
+        <label >Vzdálenost (Km)</label>
+            
+        
+      
     
-
-               <div>
-        <label for="DistanceID">Vzdálenost (Km)</label>
-            <Input type="number" max="200" id="AgeID" name="AgeName" class="form-control " />
-        </div>
+        <input type="number" max="2000" min="0" id="AgeID" name="AgeName" @bind-BindingValue="@Data.Vzdalenost" @bind-BindingValue:event="onInput" class="form-control" />
         <div class="dropdown mt-3">
             <label class="dropdown-toggle">Vyberte možnosti</label>
             <div class="dropdown-content">
                 <label class="checkbox-label">
                     <InputCheckbox id="CheckHrad" @bind-Value="@Data.Hrad"  /> Hrad
+                    
                 </label>
                 <label class="checkbox-label">
                     <InputCheckbox id="CheckZamek" @bind-Value="@Data.Zamek" /> Zamek

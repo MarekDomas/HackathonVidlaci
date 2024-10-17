@@ -8,9 +8,9 @@ namespace HackathonVidlaci.Classes
 
         public static int Age { get; set; }
 
-       
 
-        public int Vzdalenost { get; set; }
+
+        public int Vzdalenost { get; set; } = 2000;
 
         public double Longitude { get; set; }
         public double Latitude { get; set; }

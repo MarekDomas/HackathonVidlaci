@@ -75,10 +75,13 @@
 </div>
 
 @code {
+
+    int mx = 30;
     double mlat;
     double mlon;
     public async Task ReadDB(UserData data)
     {
+        mx = data.Vzdalenost;
         await Js.InvokeVoidAsync("ClearMarkers");
 
         mlat = await Js.InvokeAsync<double>("glat");
@@ -149,7 +152,7 @@
     }
 
 
-    int mx = 30;
+
 
 
     public async void CreateMarkers(double? lat, double? lon,string col)
@@ -164,8 +167,9 @@
             return;
         }
 
-        if(CalculateDistance(lat,lon,mlat,mlon) > mx)
+        if (CalculateDistance(lat, lon, mlat, mlon) > mx)
         {
+            Debug.Print(mx+"");
             return;
         }
 
