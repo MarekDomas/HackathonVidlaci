@@ -1,7 +1,29 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>PamatkyNaHadky</PageTitle>
 
-<h1>@msg</h1>
-
-Welcome to your new app.
+<h1>Památky Na Hádky</h1>
+<p>Na této stránce můžete najít zábavu pro vás i vaši celou rodinu</p>
+<EditForm >
+   <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div>
+        <label>
+            Pohlaví
+                <InputSelect Value="dff">
+                    <option value="">
+                        Muž
+                    </option>
+                    <option value="">
+                        Žena
+                    </option>
+                    <option>
+                        Útočná Helikoptéra
+                    </option>
+                    <option>
+                        Nechci Uvádět
+                    </option>
+                </InputSelect>
+        </label>
+    </div>
+</EditForm>
