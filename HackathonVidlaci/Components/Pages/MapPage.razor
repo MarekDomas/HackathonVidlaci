@@ -1,12 +1,22 @@
-﻿@inject IJSRuntime Js
+﻿@using HackathonVidlaci.Classes
+@using System.Diagnostics
+@inject IJSRuntime Js
+@inject HradyContext hradyContext
+@inject HrobyContext hrobyContext
+@inject DivadlaContext divadlaContext
+@inject ZamkyContext zamkyContext
+@inject KulturniDomyContext kulturniDomyContext
+@inject TechnickePamatkyContext technickePamatkyContext
 @rendermode InteractiveServer
 
 
 <div>
+    <button @onclick="ReadDB">Set</button>
     <p>huhuhuhuhuhu</p>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-    <div id="map"></div>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+   
+   
     <script>
         var map = L.map('map').setView([51.505, -0.09], 13); // Default location (London)
 
@@ -40,19 +50,42 @@
     <script>
         function AddMarker(lat,lon,col){
             L.marker([lat, lon]).addTo(map);
-            console.log("called");
+            console.log(lon + "__" + lat);
         }
     </script>
-    <button @onclick="CreateMarkers">Set</button>
+
 </div>
 
 @code {
-   
 
-
-
-    public async void CreateMarkers()
+    public void ReadDB()
     {
-        await Js.InvokeVoidAsync("AddMarker", 50.202857, 15.831212);
+        var kult = kulturniDomyContext.Kulturní_domy.ToList();
+
+        foreach(var k in kult)
+        {
+           
+            CreateMarkers(k.y, k.x);
+        }
+
+    }
+
+    public void deg()
+    {
+        CreateMarkers(50.1981917, 15.8647958);
+    }
+
+
+
+
+    public async void CreateMarkers(double? lat, double? lon)
+    {
+        Debug.Print(lat.ToString());
+        if(lat is null || lon is null)
+        {
+            return;
+        }
+
+        await Js.InvokeVoidAsync("AddMarker",lat, lon);
     }
 }
