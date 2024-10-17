@@ -11,7 +11,7 @@
 
 
 <div>
-    <button @onclick="ReadDB">Set</button>
+  
     <p>huhuhuhuhuhu</p>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
@@ -19,19 +19,23 @@
    
     <script>
         var map = L.map('map').setView([51.505, -0.09], 13); // Default location (London)
-
+                var markers = L.layerGroup();
+                map.addLayer(markers);
         // Load and display a tile layer on the map (OpenStreetMap tiles)
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
+        var lat ;
+        var lon ;
+        function glat(){return lat;}
+        function glon(){return lon;}
 
-        // Check if geolocation is available
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 // Get user's current coordinates
-                var lat = position.coords.latitude;
-                var lon = position.coords.longitude;
+                 lat = position.coords.latitude;
+                 lon = position.coords.longitude;
 
                 // Update the map to the user's location
                 map.setView([lat, lon], 13);
@@ -49,43 +53,157 @@
     </script>
     <script>
         function AddMarker(lat,lon,col){
-            L.marker([lat, lon]).addTo(map);
+
+
+            var myIcon = L.icon({
+                iconUrl: col,
+                iconSize: [20, 40],
+                iconAnchor: [10, 40],
+               
+            });
+
+            var mark = L.marker([lat, lon],{icon :myIcon}).addTo(map);
+            markers.addLayer(mark);
             console.log(lon + "__" + lat);
+        }
+
+        function ClearMarkers(){
+                  markers.clearLayers();
         }
     </script>
 
 </div>
 
 @code {
-
-    public void ReadDB()
+    double mlat;
+    double mlon;
+    public async Task ReadDB(UserData data)
     {
-        var kult = kulturniDomyContext.Kulturní_domy.ToList();
+        await Js.InvokeVoidAsync("ClearMarkers");
 
-        foreach(var k in kult)
+        mlat = await Js.InvokeAsync<double>("glat");
+        mlon = await Js.InvokeAsync<double>("glon");
+
+        Debug.Print(data.Zamek+"");
+
+        if (data.Kulturak)
         {
-           
-            CreateMarkers(k.y, k.x);
+            var kult = kulturniDomyContext.Kulturní_domy.ToList();
+            foreach (var k in kult)
+            {
+
+                CreateMarkers(k.y, k.x,"fialova.svg");
+            }
         }
 
+        if (data.Zamek)
+        {
+            var list = zamkyContext.Zámky.ToList();
+            foreach (var k in list)
+            {
+
+                CreateMarkers(k.y, k.x,"hneda.svg");
+            }
+        }
+
+        if (data.Hrad)
+        {
+            var list = hradyContext.hrady.ToList();
+            foreach (var k in list)
+            {
+
+                CreateMarkers(k.y, k.x,"cerna.svg");
+            }
+        }
+        if (data.ValecneHroby)
+        {
+            var list = hrobyContext.Válečné_hroby.ToList();
+            foreach (var k in list)
+            {
+
+                CreateMarkers(k.y, k.x,"modra.svg");
+            }
+        }
+
+
+        if (data.Technicke)
+        {
+            var list = technickePamatkyContext.Technické_památky.ToList();
+            foreach (var k in list)
+            {
+
+                CreateMarkers(k.y, k.x,"cervena.svg");
+            }
+        }
+
+
+        if (data.Divadla)
+        {
+            var list = divadlaContext.Divadla_a_filharmonie.ToList();
+            foreach (var k in list)
+            {
+
+                CreateMarkers(k.y, k.x,"oranzova.svg");
+            }
+        }
     }
 
-    public void deg()
+
+    int mx = 30;
+
+
+    public async void CreateMarkers(double? lat, double? lon,string col)
     {
-        CreateMarkers(50.1981917, 15.8647958);
-    }
 
 
 
 
-    public async void CreateMarkers(double? lat, double? lon)
-    {
         Debug.Print(lat.ToString());
         if(lat is null || lon is null)
         {
             return;
         }
 
-        await Js.InvokeVoidAsync("AddMarker",lat, lon);
+        if(CalculateDistance(lat,lon,mlat,mlon) > mx)
+        {
+            return;
+        }
+
+        await Js.InvokeVoidAsync("AddMarker",lat, lon,col);
+    }
+
+
+
+    private const double Radius = 6371;
+
+    
+    public static double CalculateDistance(double? lat1, double? lon1, double? lat2, double? lon2)
+    {
+        
+        double lat1Rad = (double)DegreesToRadians(lat1);
+        double lon1Rad = (double)DegreesToRadians(lon1);
+        double lat2Rad = (double)DegreesToRadians(lat2);
+        double lon2Rad =(double) DegreesToRadians(lon2);
+
+       
+        double dlat = lat2Rad - lat1Rad;
+        double dlon = lon2Rad - lon1Rad;
+
+        double a = Math.Sin(dlat / 2) * Math.Sin(dlat / 2) +
+                   Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
+                   Math.Sin(dlon / 2) * Math.Sin(dlon / 2);
+
+        double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
+        
+        double distanceKm = Radius * c;
+
+        return distanceKm;
+    }
+
+   
+    private static double? DegreesToRadians(double? degrees)
+    {
+        return degrees * Math.PI / 180;
     }
 }

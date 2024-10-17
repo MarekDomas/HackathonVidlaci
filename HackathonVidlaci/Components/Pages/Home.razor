@@ -1,6 +1,6 @@
 ﻿@page "/"
 @using HackathonVidlaci.Classes
-<<<<<<< HEAD
+@using HackathonVidlaci.Components
 @inject IJSRuntime Js
 @rendermode InteractiveServer
 @inject HradyContext hradyContext
@@ -113,74 +113,44 @@
 <!-- Flexbox container for form and map -->
 <div class="container">
     <!-- Form Section -->
-    <Form class="form-group">
-        <div>
-            <label for="SexID">Pohlaví</label>
-            <select name="SexName" id="SexID" class="form-control">
-                <option selected disabled>...</option>
-                <option>Muž</option>
-                <option>Žena</option>
-                <option>Útočná helikoptéra</option>
-                <option>Nechci uvádět</option>
-            </select>
-        </div>
-        <div>
-            <label for="AgeID">Věk</label>
-            <Input type="number" max="99" id="AgeID" name="AgeName" class="form-control" />
-        </div>
-        <div>
-            <label for="kidsNumberID">Počet dětí</label>
-            <input id="kidsNumberID" name="KidsNumberName" type="number" min="0" class="form-control" />
-        </div>
-        <div>
-            <label for="timeID">Délka zábavy</label>
-            <input type="time" max="12:00" step="600" class="form-control" />
-        </div>
-        <div>
-            <label for="budgetID">Rozpočet (KČ)</label>
-            <input type="number" class="form-control" />
-        </div>
-        <div>
-            <label for="transportID">Možnost přepravy</label>
-            <select class="form-control">
-                <option selected disabled>...</option>
-                <option>Automobil</option>
-                <option>Pěšky</option>
-                <option>MHD</option>
-            </select>
-        </div>
+    <EditForm Model="@Data" class="form-group" OnValidSubmit="Submit">
+        
         
         <!-- Dropdown with Checkboxes -->
         <div class="dropdown mt-3">
             <label class="dropdown-toggle">Vyberte možnosti</label>
             <div class="dropdown-content">
                 <label class="checkbox-label">
-                    <input id="CheckHrad" type="checkbox" /> Hrad
+                    <InputCheckbox id="CheckHrad" @bind-Value="@Data.Hrad"  /> Hrad
                 </label>
                 <label class="checkbox-label">
-                    <input id="CheckZamek" type="checkbox" /> Zamek
+                    <InputCheckbox id="CheckZamek" @bind-Value="@Data.Zamek" /> Zamek
                 </label>
                 <label class="checkbox-label">
-                    <input id="CheckKulturPam" type="checkbox" /> Kulturní památky
+                    <InputCheckbox id="CheckKulturPam" @bind-Value="@Data.KulturniPamatky" /> Kulturní památky
                 </label>
                 <label class="checkbox-label">
-                    <input id="CheckTech" type="checkbox" /> Technické
+                    <InputCheckbox id="CheckTech" @bind-Value="@Data.Technicke" /> Technické
                 </label>                
                 <label class="checkbox-label">
-                    <input id="CheckHrob" type="checkbox" /> Válečné hroby
+                    <InputCheckbox id="CheckHrob" @bind-Value="@Data.ValecneHroby" /> Válečné hroby
                 </label>                
                 <label class="checkbox-label">
-                    <input id="CheckDivadla" type="checkbox" /> Divadla
+                    <InputCheckbox id="CheckDivadla" @bind-Value="@Data.Divadla" /> Divadla
                 </label>                
                 <label class="checkbox-label">
-                    <input id="CheckKultDum" type="checkbox" /> Kulturní domy
+                    <InputCheckbox id="CheckKultDum" @bind-Value="@Data.Kulturak" /> Kulturní domy
                 </label>               
                 <label class="checkbox-label">
-                    <input id="CheckMuzea" type="checkbox" /> Muzea
+                    <InputCheckbox id="CheckMuzea" @bind-Value="@Data.Muzea" /> Muzea
                 </label>
             </div>
+
+           
         </div>
-    </Form>
+        <br />
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </EditForm>
 
     <!-- Map Section -->
     <div class="map-container" id="map">
@@ -188,37 +158,16 @@
     </div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-<script>
-    var map = L.map('map').setView([50.2042646, 15.8267867], 13); // Default location (London)
+<MapPage @ref="mapp"></MapPage>
 
-    // Load and display a tile layer on the map (OpenStreetMap tiles)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
 
-    // Check if geolocation is available
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            // Get user's current coordinates
-            var lat = position.coords.latitude;
-            var lon = position.coords.longitude;
+@code{
+    MapPage mapp;
+    public void Submit()
+    {
+       
+      
 
-            // Update the map to the user's location
-            map.setView([lat, lon], 13);
-
-            // Add a marker at the user's current location
-            L.marker([lat, lon]).addTo(map)
-                .bindPopup("Jste zde!")
-                .openPopup();
-        }, function (error) {
-            alert("Nepodařilo se nám získat Vaši lokaci z důvodu: " + error.message);
-        });
-    } else {
-        alert("Geolokace není podporována ve Vašem prohlížeči.");
+        mapp.ReadDB(Data);
     }
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HZ5S65z4FcAz7QHnA9EjZCQKNjDd6V/QfbuSnP0MtXMQXpTFU/yICp8HkmMfQ0zz"
-        crossorigin="anonymous"></script>
+}
