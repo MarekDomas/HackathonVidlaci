@@ -1,7 +1,17 @@
 ﻿@page "/"
+@using HackathonVidlaci.Classes
+@inject HradyContext hradyContext
+@inject HrobyContext hrobyContext
+@inject DivadlaContext divadlaContext
+@inject ZamkyContext zamkyContext
+@inject KulturniDomyContext kulturniDomyContext
+@inject TechnickePamatkyContext technickePamatkyContext
 
 <PageTitle>Home</PageTitle>
+@* 
+@foreach (var line in msg){
+    
+    <p>@line</p>
+} *@
 
-<h1>@msg</h1>
-
-Welcome to your new app.
+<button class="btn btn-primary" @onclick="klik">Load data</button>
