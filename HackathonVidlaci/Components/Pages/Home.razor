@@ -16,25 +16,29 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
     <style>
         body {
-            background-color: #f7efd3; /* Light cream background */
+            background-color: #212529; /* Dark brown background */
         }
 
         h1 {
-            color: #475c6c; /* Dark blue-grey for the title */
+            color: #f8f9fa; /* Bright orange for the title */
         }
 
         p {
-            color: #8a8583; /* Medium grey for the paragraph */
+            color: #e9ecef; /* Medium orange-brown for the paragraph */
+        }
+        label{
+            color: #e9ecef;
         }
 
         select, input {
-            border-color: #cd8b62; /* Warm terracotta for form borders */
-        }
+            border-color: #101418; /* Dark red-brown for form borders */
 
+        }     
         select:focus, input:focus {
-            border-color: #475c6c; /* Dark blue-grey on focus */
-            box-shadow: 0 0 5px rgba(71, 92, 108, 0.5);
+                box-shadow: 0 0 5px rgba(255, 255, 255, 1) !important;
         }
+        
+
 
         .container {
             display: flex;
@@ -50,9 +54,9 @@
 
         .map-container {
             flex: 4; /* The map takes up 4 parts of the available space */
-            height: 400px; /* Keep the height fixed */
-            background-color: #eed7a1; /* Soft beige map placeholder */
-            border: 2px solid #cd8b62; /* Terracotta border */
+            height: 800px; /* Keep the height fixed */
+            background-color: #101418; /* Dark red-brown map placeholder */
+            border: 2px solid #e9ecef; /* Medium orange-brown border */
         }
 
         .header {
@@ -68,9 +72,9 @@
 
         .dropdown-toggle {
             padding: 10px;
-            background-color: #cd8b62; /* Match to form border color */
+            background-color: #101418; /* Match to form border color */
             color: white;
-            border: 2px solid #cd8b62; /* Same border as form elements */
+            border: 2px solid #101418; /* Same border as form elements */
             cursor: pointer;
             width: 100%; /* Full width */
             border-radius: 0.6rem;
@@ -79,29 +83,30 @@
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #f9f9f9;
+            background-color: #000210; /* Dark brown for the dropdown background */
             min-width: 100%; /* Match the width of the dropdown */
-            border: 2px solid #cd8b62; /* Match form border */
+            border: 2px solid #000420; /* Match form border */
             z-index: 1;
             padding: 10px;
-            box-shadow: 0 0 5px rgba(71, 92, 108, 0.5); /* Subtle shadow for dropdown */
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Orange shadow for dropdown */
         }
 
         .dropdown:hover .dropdown-content {
             display: block; /* Show dropdown on hover */
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5)
         }
 
         .checkbox-label {
             display: block; /* Each checkbox on a new line */
             padding: 5px 0;
             cursor: pointer;
-            
         }
 
-        .checkbox-label:hover {
-            background-color: #f1f1f1; /* Highlight on hover */
-        }
+            .checkbox-label:hover {
+                background-color: #000420; /* Highlight on hover with dark red-brown */
+            }
     </style>
+
 </head>
 
 <!-- Header Section -->
@@ -113,10 +118,16 @@
 <!-- Flexbox container for form and map -->
 <div class="container">
     <!-- Form Section -->
+
     <EditForm Model="@Data" class="form-group" OnValidSubmit="Submit">
         
-        
-        <!-- Dropdown with Checkboxes -->
+
+    
+
+               <div>
+        <label for="DistanceID">Vzdálenost (Km)</label>
+            <Input type="number" max="200" id="AgeID" name="AgeName" class="form-control " />
+        </div>
         <div class="dropdown mt-3">
             <label class="dropdown-toggle">Vyberte možnosti</label>
             <div class="dropdown-content">
