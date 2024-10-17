@@ -42,7 +42,7 @@
 
         .map-container {
             flex: 4; /* The map takes up 4 parts of the available space */
-            height: 500px; /* Keep the height fixed */
+            height: 400px; /* Keep the height fixed */
             background-color: #eed7a1; /* Soft beige map placeholder */
             border: 2px solid #cd8b62; /* Terracotta border */
         }
@@ -50,6 +50,46 @@
         .header {
             text-align: center; /* Center-align the heading and paragraph */
             margin-bottom: 30px; /* Add spacing below the header */
+        }
+                .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            border: 1px solid #ccc;
+            z-index: 1;
+            padding: 10px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block; /* Show dropdown on hover */
+        }
+
+        .checkbox-label {
+            display: block; /* Each checkbox on a new line */
+            padding: 5px 0;
+            cursor: pointer;
+        }
+
+        .checkbox-label:hover {
+            background-color: #f1f1f1; /* Highlight on hover */
+        }
+
+        .dropdown-toggle {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-toggle:focus {
+            outline: none;
         }
     </style>
 </head>
@@ -98,6 +138,35 @@
                 <option>Pěšky</option>
                 <option>MHD</option>
             </select>
+        </div>
+        <div class="dropdown">
+            <label class="dropdown-toggle">Select Options</label>
+            <div class="dropdown-content">
+                <label class="checkbox-label">
+                    <input type="checkbox" /> Hrad
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" /> Zamek
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" /> Kulturní památky
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" /> Technické
+                </label>                
+                <label class="checkbox-label">
+                    <input type="checkbox" /> Válečné hroby
+                </label>                
+                <label class="checkbox-label">
+                    <input type="checkbox" /> Divadla
+                </label>                
+                <label class="checkbox-label">
+                    <input type="checkbox" /> Kulturní domy
+                </label>               
+                <label class="checkbox-label">
+                    <input type="checkbox" /> Muzea
+                </label>
+            </div>
         </div>
     </Form>
 
