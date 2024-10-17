@@ -1,4 +1,7 @@
-﻿namespace HackathonVidlaci.Components.Pages
+﻿using HackathonVidlaci.Classes;
+using System.Diagnostics;
+
+namespace HackathonVidlaci.Components.Pages
 {
     public partial class Home
     {
